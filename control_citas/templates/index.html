@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Citas - Menú Principal</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #sugerencias {
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            margin-top: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #sugerencias li {
+            padding: 5px;
+            cursor: pointer;
+            background: #f9f9f9;
+        }
+
+        #sugerencias li:hover {
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Control de Citas</h1>
+    <nav>
+        <ul>
+            <li><a href="/agregar">Agregar Paciente</a></li>
+            <li><a href="/modificar">Modificar Paciente</a></li>
+            <li><a href="/eliminar">Eliminar Paciente</a></li>
+        </ul>
+    </nav>
+    <h2>Buscar Paciente</h2>
+    <input type="text" id="busqueda" placeholder="Ingresa nombre..." autocomplete="off">
+    <ul id="sugerencias"></ul>
+    <script>
+        $(document).ready(function () {
+            $('#busqueda').on('input', function () {
+                let nombre = $(this).val();
+                if (nombre.length > 0) {
+                    $.get('/buscar', { nombre: nombre }, function (data) {
+                        $('#sugerencias').empty();
+                        data.forEach(function (paciente) {
+                            $('#sugerencias').append(
+                                `<li onclick="selectPaciente(${paciente.id})">${paciente.nombre} ${paciente.apellido}</li>`
+                            );
+                        });
+                    });
+                } else {
+                    $('#sugerencias').empty();
+                }
+            });
+        });
+
+        function selectPaciente(id) {
+            $('#busqueda').val('');
+            $('#sugerencias').empty();
+            window.location.href = `/modificar/${id}`; // Redirige a la página de modificar
+        }
+    </script>
+</body>
+</html>

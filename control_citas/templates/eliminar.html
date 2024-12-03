@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Paciente</title>
+</head>
+<body>
+    <h1>Eliminar Paciente</h1>
+    
+    <h2>Selecciona un paciente para eliminar:</h2>
+    <ul>
+        {% for paciente in pacientes %}
+            <li>
+                {{ paciente['Nombre'] }} {{ paciente['Apellido'] }}
+                <form action="/eliminar" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="{{ paciente['ID'] }}">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Volver al menú principal</a>
+</body>
+</html>
