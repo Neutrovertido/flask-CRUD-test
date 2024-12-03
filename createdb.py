@@ -2,7 +2,7 @@ import sqlite3
 import os
 
 # Ruta de la base de datos
-ruta_db = r'C:\Users\James\Desktop\BDD\bddcitas.db'
+ruta_db = os.path.join(os.path.dirname(__file__), 'bddcitas.db')
 
 # Crear la base de datos y las tablas
 conexion = sqlite3.connect(ruta_db)

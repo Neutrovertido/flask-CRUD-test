@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import sqlite3
+import os
 
 app = Flask(__name__)
 
 # Ruta de la base de datos
-DATABASE = r'C:\Users\James\Desktop\BDD\bddcitas.db'
+DATABASE = os.path.join(os.path.dirname(__file__), '..', 'bddcitas.db')
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
